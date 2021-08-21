@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+* {
+	font-family: Lato;
+}
+
+body {
+	font-family: Lato;
+	background-color: #202020;
+	color: #fff;
+}
+
+button {
+	border: none;
+	background: none;
+	color: #fff;
+}
+
+button:focus {
+	border: none;
+	background: none;
+	color: #fff;
+}
+
+.addCard {
+	border: 1px dashed #424242;
+	border-radius: 15px;
+	padding: 1.5rem;
+	margin: .5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #424242;
+	height: 100%;
+}
+
+input[type=text],
+input[type=url] {
+	background-color: transparent;
+	border: none;
+	width: 100%;
+	color: #fff;
+}
+
+input[type=text]:focus,
+input[type=url]:focus {
+	background-color: transparent;
+	border: none;
+	width: 100%;
+	outline: none;
+}
+
+.textcardheader {
+	font-size: 2rem;
+}
+
+.outercardadd {
+	height: 100%;
+}
+
+a,
+a:hover {
+	text-decoration: none;
+	color: #fff;
+}
+
+.invis {
+	display: none;
+}
+
+.titlebar {
+	height: 40px;
+	width: 100%;
+	-webkit-app-region: drag;
+	background-color: #212529;
+	display: flex;
+	align-items: center;
+	justify-content: right;
+	text-align: right;
+}

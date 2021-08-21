@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GroupDesk | Edit Config</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/icon.min.css" integrity="sha512-8Tb+T7SKUFQWOPIQCaLDWWe1K/SY8hvHl7brOH8Nz5z1VT8fnf8B+9neoUzmFY3OzkWMMs3OjrwZALgB1oXFBg==" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://localhost:7474/style.css">
+</head>
+<body>
+    <div class="container">
+        <form action="/settingsView/config" method="post">
+            <textarea name="config" id="config" style="color: #fff; background-color: transparent; border: none; border-radius: 5px; width: 100%; white-space: pre-wrap;"><%-config%></textarea>
+            <input type="submit" value="Submit" class="btn btn-success">
+            <a href="/settingsView" type="submit" class="btn btn-danger">Back</a>
+        </form>
+    </div>
+</body>
+</html>

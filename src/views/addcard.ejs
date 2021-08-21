@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Groupdesk</title>
+
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/icon.min.css"
+			integrity="sha512-8Tb+T7SKUFQWOPIQCaLDWWe1K/SY8hvHl7brOH8Nz5z1VT8fnf8B+9neoUzmFY3OzkWMMs3OjrwZALgB1oXFBg=="
+			crossorigin="anonymous"
+		/>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div class="container">
+			<h1>GroupDesk | Add Card</h1>
+
+			<div class="row">
+				<div class="col-4">
+					<div class="card bg-dark">
+                        <div class="card-body">
+                            <form action="/newcard" method="post">
+								<input type="text" name="type" id="type" value="time" class="invis">
+								<input type="text" name="name" id="name" placeholder="Time..." style="font-size: 1.25rem;" required>
+								<p class="timeCardDisplay"></p>
+								<br>
+								<input type="submit" value="Submit" class="btn btn-outline-success">
+							</form>
+                        </div>
+                    </div>
+				</div>
+				<div class="col-4">
+					<div class="card bg-dark">
+                        <div class="card-body">
+                            <form action="/newcard" method="post">
+								<input type="text" name="type" id="type" value="date" class="invis">
+								<input type="text" name="name" id="name" placeholder="Date..." style="font-size: 1.25rem;" required>
+								<p class="dateCardDisplay"></p>
+								<br>
+								<input type="submit" value="Submit" class="btn btn-outline-success">
+							</form>
+                        </div>
+                    </div>
+				</div>
+				<div class="col-4">
+					<div class="card bg-dark">
+                        <div class="card-body">
+                            <form action="/newcard" method="post">
+								<input type="text" name="type" id="type" value="text" class="invis">
+								<input type="text" name="name" id="name" placeholder="Text..." style="font-size: 1.25rem;" required>
+								<input type="text" name="textval" id="textval" placeholder="Something important..." style="font-size: 1rem;" required>
+								<br><br>
+
+								<input type="submit" value="Submit" class="btn btn-outline-success">
+							</form>
+                        </div>
+                    </div>
+				</div>
+				<div class="col-4">
+					<div class="card bg-dark">
+                        <div class="card-body">
+                            <form action="/newcard" method="post">
+								<input type="text" name="type" id="type" value="url" class="invis">
+								<input type="text" name="name" id="name" placeholder="Text..." style="font-size: 1.25rem;" required>
+								<input type="text" name="urlph" id="urlph" placeholder="Your URL Placeholder..." style="font-size: 1rem;" required>
+								<input type="text" name="urlval" id="urlval" placeholder="Your URL..." style="font-size: 1rem;" required>
+								<br><br>
+
+								<input type="submit" value="Submit" class="btn btn-outline-success">
+							</form>
+                        </div>
+                    </div>
+				</div>
+			</div>
+
+			<a href="/" class="btn btn-outline-danger"><i class="arrow left icon"></i></a>
+		</div>
+
+		<script>
+			if (typeof module === 'object') {
+				window.module = module;
+				module = undefined;
+			}
+		</script>
+
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+			crossorigin="anonymous"
+		></script>
+
+		<script>
+			$('.dateCardDisplay').text(checkDate())
+			$('.timeCardDisplay').text(checkTime())
+
+			setInterval(() => {
+				$('.dateCardDisplay').text(checkDate())
+				$('.timeCardDisplay').text(checkTime())
+			}, 1000)
+
+			function checkDate()    {
+				let date = new Date()
+				let day = date.getDate()
+				let month = date.getMonth() + 1
+				let year = date.getFullYear()
+				if(month < 10)  {
+					month = `0${month}`
+				}
+
+				if(day < 10)  {
+					day = `0${day}`
+				}
+
+				let dateString = `${day}.${month}.${year}`
+				return dateString;
+			}
+
+			function checkTime()    {
+				let date = new Date()
+				let hour = date.getHours()
+				let minutes = date.getMinutes()
+				if(hour < 10)  {
+					hour = `0${hour}`
+				}
+
+				if(minutes < 10)  {
+					minutes = `0${minutes}`
+				}
+
+				let dateString = `${hour}:${minutes}`
+				return dateString;
+			}
+		</script>
+
+		<script>
+			if (window.module) module = window.module;
+		</script>
+	</body>
+</html>

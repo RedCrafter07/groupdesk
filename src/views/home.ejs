@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GroupDesk</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/icon.min.css" integrity="sha512-8Tb+T7SKUFQWOPIQCaLDWWe1K/SY8hvHl7brOH8Nz5z1VT8fnf8B+9neoUzmFY3OzkWMMs3OjrwZALgB1oXFBg==" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="switch.css">
+</head>
+<body>
+    <!-- <% if (popout == true) { %> 
+        <div class="titlebar">
+            Test
+        </div>
+    <% } %> -->
+
+    <div class="offcanvas offcanvas-start offcanvas-dark bg-dark" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasExampleLabel">GroupDesk - Menu</h5>
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <div>
+            Change some settings of GroupDesk. Open this menu with M. <br>INFO: When you change something, the page will be reloaded. All unsaved changes you made will be lost.
+          </div>
+          <!-- <div class="dropdown mt-3">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+              Dropdown button
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </div> -->
+          <form action="/changeConfig" method="post">
+            <label class="switch" for="checkbox">
+                <input type="checkbox" id="checkbox" name="showBar" <% if(config.showBar == true) {%>
+                    checked
+                  <% } %> />
+                <div class="slider round"></div>
+            </label>
+            Show Navbar<br>
+
+            <label class="switch" for="checkbox2">
+                <input type="checkbox" id="checkbox2" name="editmode" <% if(config.editmode == true) {%>
+                    checked
+                  <% } %> />
+                <div class="slider round"></div>
+            </label> Edit Mode<br>
+
+              <input type="submit" value="Submit" class="btn btn-success">
+
+            </form>
+
+            <br>
+
+            <% if (popout == true) { %> 
+                <btn class="btn btn-outline-success" onclick="popout()">Popout</btn>
+            <% } else { %> 
+                <btn class="btn btn-outline-warning" onclick="popout()">Popout</btn>
+            <% } %>
+        </div>
+      </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark  <% if(config.showBar == false) { %>
+        d-none
+    <% } %>"><div class="container-fluid">
+        <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+            Menu
+        </button>
+    </div></nav>
+    
+    <div class="container">
+        <h1>Welcome to GroupDesk!</h1>
+
+        <div class="row">
+            <% cards.forEach((card) => { %>
+                <div class="col-lg-4 col-6">
+                    <div class="card bg-dark">
+                        <div class="card-body">
+                            <!-- <form action="" method="post" name="card1">
+                                <input type="text" name="title" id="title" placeholder="Title..." class="textcardheader">
+                                <input type="text" name="content" id="content" placeholder="Input...">
+                            </form> -->
+                            <h5><%= card.name %></h5>
+                            
+                            <% if(card.type == "text")  { %>
+                                <p><%= card.val %></p>
+                            <% } else if(card.type == "url") {%>
+                                <a href="<%= card.val %>"><%= card.ph %></a>
+                            <% } else if (card.type == "date") { %>
+                                <p class="dateCardDisplay"></p>
+                            <% } else if (card.type == "time") { %>
+                                <p class="timeCardDisplay"></p>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            <% })%>
+
+            <% if(config.cards[0] == undefined)    { %> 
+                <div class="nothing col-12">
+                    <div class="card bg-dark">
+                        <div class="card-body">
+                            <h5>Nothing...</h5>
+                            <p>Add something with the Edit Mode (M -> Edit Mode)!</p>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+
+
+    </div>
+
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;};</script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script>
+        $('html').keypress(function(e) {
+            if (e.keyCode == 109) {
+                $('#offcanvasExample').toggleClass('show')
+
+                var myOffcanvas = document.getElementById('offcanvasExample')
+                var bsOffcanvas = new bootstrap.Offcanvas(myOffcanvas)
+                
+                bsOffcanvas.show()
+            }
+        });
+
+        $('body').on('click', 'a', (event) => {
+            event.preventDefault();
+            let link = event.target.href;
+            require("electron").shell.openExternal(link);
+        });
+
+        $('.dateCardDisplay').text(checkDate())
+        $('.timeCardDisplay').text(checkTime())
+
+        setInterval(() => {
+            $('.dateCardDisplay').text(checkDate())
+            $('.timeCardDisplay').text(checkTime())
+        }, 1000)
+
+        function checkDate()    {
+            let date = new Date()
+            let day = date.getDate()
+            let month = date.getMonth() + 1
+            let year = date.getFullYear()
+            if(month < 10)  {
+                month = `0${month}`
+            }
+
+            if(day < 10)  {
+                day = `0${day}`
+            }
+
+            let dateString = `${day}.${month}.${year}`
+            return dateString;
+        }
+
+        function checkTime()    {
+            let date = new Date()
+            let hour = date.getHours()
+            let minutes = date.getMinutes()
+            if(hour < 10)  {
+                hour = `0${hour}`
+            }
+
+            if(minutes < 10)  {
+                minutes = `0${minutes}`
+            }
+
+            let dateString = `${hour}:${minutes}`
+            return dateString;
+        }
+
+        function popout() {
+            window.location.replace("/popout")
+        }
+    </script>
+
+    <script>if (window.module) module = window.module;</script>
+</body>
+</html>

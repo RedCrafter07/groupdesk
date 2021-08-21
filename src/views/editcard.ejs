@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Groupdesk</title>
+
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/icon.min.css"
+			integrity="sha512-8Tb+T7SKUFQWOPIQCaLDWWe1K/SY8hvHl7brOH8Nz5z1VT8fnf8B+9neoUzmFY3OzkWMMs3OjrwZALgB1oXFBg=="
+			crossorigin="anonymous"
+		/>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" href="../style.css" />
+	</head>
+	<body>
+		<div class="container">
+			<h1>GroupDesk | Edit Card</h1>
+
+            <p class="invis type"><%= card.type %></p>
+
+			<p class="invis val"><%= card.val %></p>
+			<p class="invis ph"><%= card.ph %></p>
+
+			<form action="/editcard/<%= card.id %>" method="post">
+				<div class="row">
+					<div class="col-6">
+						<div class="card bg-dark">
+							<div class="card-body">
+								<h5>Card Name</h5>
+								<input type="text" name="name" id="name" placeholder="Card Name" required="true" value="<%= card.name %>"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-6 text d-none">
+						<div class="card bg-dark">
+							<div class="card-body">
+								<h5>Textcard Value</h5>
+								<input type="text" name="textval" id="textval" placeholder="Text..." value="<%= card.val %>" />
+							</div>
+						</div>
+					</div>
+
+					<div class="col-6 url d-none">
+						<div class="card bg-dark">
+							<div class="card-body">
+								<h5>Card URL</h5>
+								<input type="url" name="urlval" id="urlval" placeholder="URL..." value="<%= card.val %>" />
+							</div>
+						</div>
+					</div>
+					<div class="col-6 url d-none">
+						<div class="card bg-dark">
+							<div class="card-body">
+								<h5>Card URL Placeholder</h5>
+								<input type="text" name="urlph" id="urlph" placeholder="My URL..." value="<%= card.ph %>" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<input type="submit" value="Edit Card" class="btn btn-success send d-none" />
+				<a href="/" class="btn btn-danger">Cancel</a>
+			</form>
+		</div>
+
+		<script>
+			if (typeof module === 'object') {
+				window.module = module;
+				module = undefined;
+			}
+		</script>
+
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+			crossorigin="anonymous"
+		></script>
+
+		<script>
+			setInterval(() => {
+				if ($('.type').text() == 'text') {
+					$('.text').removeClass('d-none');
+					$('.url').addClass('d-none');
+					if ($('#textval').val()) {
+						$('.send').removeClass('d-none');
+					} else {
+						$('.send').addClass('d-none');
+					}
+				} else if ($('.type').text() == 'url') {
+					$('.text').addClass('d-none');
+					$('.url').removeClass('d-none');
+
+					if ($('#urlval').val() && $('#urlph').val()) {
+						$('.send').removeClass('d-none');
+					} else {
+						$('.send').addClass('d-none');
+					}
+				} else {
+					$('.text').addClass('d-none');
+					$('.url').addClass('d-none');
+					$('.send').removeClass('d-none');
+				}
+			}, 1000);
+
+			if ($('.type').text() == 'text') {
+				$('#textval').val($('.invis.val').text())
+				$('.url').remove()
+				} else if ($('.type').text() == 'url') {
+					$('#urlval').val($('.invis.val').text())
+					$('#urlph').val($('.invis.ph').text())
+					$('.text').remove()
+				} 
+		</script>
+
+		<script>
+			if (window.module) module = window.module;
+		</script>
+	</body>
+</html>
