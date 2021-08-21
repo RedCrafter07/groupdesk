@@ -78,7 +78,7 @@
                             <h5><%= card.name %></h5>
                             
                             <% if(card.type == "text")  { %>
-                                <p><%= card.val %></p>
+                                <p><%- card.val.replace("\n", "<br>") %></p>
                             <% } else if(card.type == "url") {%>
                                 <p><%= card.ph %></p>
                             <% } else if (card.type == "date") { %>

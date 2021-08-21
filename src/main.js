@@ -14,6 +14,8 @@ const { dialog } = require('electron'); //Dialog Box (File Opening)
 
 const fs = require('fs');
 
+const flash = require('connect-flash');
+
 let windowOptions = {
 	width: 960,
 	height: 540,
@@ -123,6 +125,7 @@ const express = require('express'),
 app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(flash());
 
 app.get('/', async (req, res) => {
 	let cards = await config.cards.sort(function(a, b) {
@@ -187,7 +190,7 @@ app.post('/newcard', async (req, res) => {
 		cardObj.ph = req.body.urlph;
 	}
 
-	if (!cardObj.val.startsWith('http://') && !cardObj.val.startsWith('https://')) {
+	if (cardObj.type == 'url' && (!cardObj.val.startsWith('http://') && !cardObj.val.startsWith('https://'))) {
 		cardObj.val = `https://${cardObj.val}`;
 	}
 
@@ -390,6 +393,11 @@ app.get('/settings/backup', (req, res) => {
 				// fs.writeFile('messages.json', JSON.stringify(messages, null, 2), err => {
 				// 	if (err) console.log(err);
 				// });
+			} else {
+				settings.setProgressBar(0.5, { mode: 'error' });
+				setTimeout(() => {
+					settings.setProgressBar(0, { mode: 'normal' });
+				}, 5000);
 			}
 		})
 		.catch(err => {
