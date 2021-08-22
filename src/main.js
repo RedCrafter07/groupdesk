@@ -2,6 +2,13 @@ const { app: desk, shell, BrowserWindow } = require('electron');
 
 const { Menu, MenuItem } = require('electron'); //Custom App Menu
 
+let configDefaults = {
+	showBar: true,
+	editmode: false,
+	cards: [],
+	skipStartScreen: false
+};
+
 let popoutActive = false;
 let changePopout = false;
 
@@ -519,6 +526,58 @@ app.get('/settingsView/config', (req, res) => {
 	settings.setResizable(true);
 	settings.maximize();
 	win.reload();
+});
+
+app.get('/reset', (req, res) => {
+	settings.setProgressBar(0.5, { mode: 'paused' });
+	dialog
+		.showOpenDialog(settings, {
+			properties: [ 'showHiddenFiles', 'promptToCreate', 'openFile' ],
+			filters: [ { name: 'JSON', extensions: [ 'json' ] } ],
+			message: 'Please select the JSON you want to backup in.',
+			title: 'GroupDesk | Backup',
+			buttonLabel: 'Start Backup'
+		})
+		.then(result => {
+			if (result.canceled == false) {
+				settings.setProgressBar(0.75, { mode: 'normal' });
+				let backupJsonPath = result.filePaths[0];
+
+				setTimeout(() => {
+					fs.writeFile(backupJsonPath, JSON.stringify(config), err => {
+						if (err) {
+							console.log(err);
+							settings.setProgressBar(1.0, { mode: 'error' });
+							return;
+						}
+
+						settings.setProgressBar(1.0, { mode: 'indeterminate' });
+
+						setTimeout(async () => {
+							settings.setProgressBar(0, { mode: 'normal' });
+							config = configDefaults;
+							await db.push('.', config);
+
+							desk.relaunch();
+							desk.exit();
+						}, 2000);
+					});
+				}, 500);
+
+				// fs.writeFile('messages.json', JSON.stringify(messages, null, 2), err => {
+				// 	if (err) console.log(err);
+				// });
+			} else {
+				settings.setProgressBar(0.5, { mode: 'error' });
+				setTimeout(() => {
+					settings.setProgressBar(0, { mode: 'normal' });
+				}, 5000);
+			}
+		})
+		.catch(err => {
+			console.log(err);
+		});
+	res.render('reset.ejs');
 });
 
 app.post('/settingsView/config', async (req, res) => {

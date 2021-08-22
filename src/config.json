@@ -1,26 +1,6 @@
 {
     "showBar": true,
-    "editmode": true,
-    "cards": [
-        {
-            "name": "Time",
-            "type": "time",
-            "id": 554192361578,
-            "pos": 0
-        },
-        {
-            "name": "Date",
-            "type": "date",
-            "id": 5912006169322,
-            "pos": 1
-        },
-        {
-            "name": "Notes",
-            "type": "text",
-            "id": 6534780553719,
-            "pos": 2,
-            "val": "Something important"
-        }
-    ],
+    "editmode": false,
+    "cards": [],
     "skipStartScreen": false
 }
