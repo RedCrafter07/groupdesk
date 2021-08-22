@@ -66,6 +66,8 @@ let config = require('./config.json');
 
 let win;
 
+let start;
+
 function createWindow() {
 	// Erstelle das Browser-Fenster.
 	win = new BrowserWindow(windowOptions);
@@ -87,10 +89,39 @@ function createWindow() {
 	win.setResizable(true);
 }
 
+function startscreen() {
+	start = new BrowserWindow({
+		width: 960 / 2,
+		height: 540,
+		webPreferences: {
+			nodeIntegration: false,
+			contextIsolation: false,
+			webSecurity: false
+		},
+		center: true,
+		icon: path.join(__dirname, '../icon.ico'),
+		frame: false,
+		resizable: false,
+		maximizable: false,
+		minimizable: false,
+		closable: false
+	});
+
+	start.loadURL(() => {});
+
+	setTimeout(() => {
+		createWindow();
+
+		setTimeout(() => {
+			start.close();
+		}, 3000);
+	}, 5000);
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Einige APIs können nur nach dem Auftreten dieses Events genutzt werden.
-desk.whenReady().then(createWindow);
+desk.whenReady().then(startscreen);
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits

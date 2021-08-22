@@ -1,13 +1,5 @@
 {
     "showBar": true,
     "editmode": false,
-    "cards": [
-        {
-            "index": 0,
-            "type": "text",
-            "name": "Test",
-            "id": 8830236514518,
-            "val": "Test\r\n123"
-        }
-    ]
+    "cards": []
 }

@@ -44,7 +44,8 @@
           "config": {
             "name": "groupdesk",
             "loadingGif": "./loading.gif",
-            "icon": "./icon.ico"
+            "iconUrl": "D:\\private\\groupdesk\\v4\\icon.ico",
+            "setupIcon": "./icon.ico"
           }
         },
         {
