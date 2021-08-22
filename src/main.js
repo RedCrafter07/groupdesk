@@ -25,7 +25,8 @@ let windowOptions = {
 		webSecurity: false
 	},
 	center: true,
-	icon: path.join(__dirname, '../icon.ico')
+	icon: path.join(__dirname, '../icon.ico'),
+	backgroundColor: '#202020'
 };
 
 // const fs = require('fs');
@@ -91,8 +92,8 @@ function createWindow() {
 
 function startscreen() {
 	start = new BrowserWindow({
-		width: 960 / 2,
-		height: 540,
+		width: 512,
+		height: 512,
 		webPreferences: {
 			nodeIntegration: false,
 			contextIsolation: false,
@@ -104,16 +105,17 @@ function startscreen() {
 		resizable: false,
 		maximizable: false,
 		minimizable: false,
-		closable: false
+		closable: false,
+		backgroundColor: '#212121'
 	});
 
-	start.loadURL(() => {});
+	start.loadURL('http://localhost:7474/loading.gif');
 
 	setTimeout(() => {
 		createWindow();
 
 		setTimeout(() => {
-			start.close();
+			start.destroy();
 		}, 3000);
 	}, 5000);
 }
@@ -121,7 +123,18 @@ function startscreen() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Einige APIs können nur nach dem Auftreten dieses Events genutzt werden.
-desk.whenReady().then(startscreen);
+desk.whenReady().then(async () => {
+	if (config.skipStartScreen == true) {
+		config.skipStartScreen = false;
+
+		await db.push('.', config);
+
+		createWindow();
+
+		return;
+	}
+	startscreen();
+});
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
@@ -158,6 +171,10 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(flash());
 
+app.get('/start', (req, res) => {
+	res.render('start.ejs');
+});
+
 app.get('/', async (req, res) => {
 	let cards = await config.cards.sort(function(a, b) {
 		return a.pos - b.pos;
@@ -190,10 +207,6 @@ app.get('/edit', async (req, res) => {
 		return a.pos - b.pos;
 	});
 	res.render('edit.ejs', { config: config, cards: cards });
-});
-
-app.get('/start', (req, res) => {
-	res.render('start.ejs');
 });
 
 app.get('/cardsettings', (req, res) => {
@@ -466,8 +479,13 @@ app.get('/settings/backup/restore', async (req, res) => {
 
 					await db.push('.', config);
 
-					setTimeout(() => {
+					setTimeout(async () => {
 						settings.setProgressBar(0, { mode: 'normal' });
+
+						config.skipStartScreen = true;
+
+						await db.push('.', config);
+
 						desk.relaunch();
 						desk.exit();
 					}, 1000);

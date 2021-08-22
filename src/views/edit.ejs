@@ -5,11 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GroupDesk</title>
-
-    <link rel="stylesheet" href="http://localhost:7474/semantic-icons.css"/>
-		<link rel="stylesheet" href="http://localhost:7474/bootstrap.min.css" />
-		<link rel="stylesheet" href="http://localhost:7474/style.css" />
-		<link rel="stylesheet" href="http://localhost:7474/switch.css" />
+    
+    <link rel="stylesheet" href="http://localhost:7474/bootstrap.min.css" />
+    <link rel="stylesheet" href="http://localhost:7474/style.css" />
+    <link rel="stylesheet" href="http://localhost:7474/switch.css" />
 </head>
 <body>
 
@@ -86,10 +85,19 @@
                             <% } else if (card.type == "time") { %>
                                 <p class="timeCardDisplay"></p>
                             <% } %>
-                            <a href="/editcard/<%= card.id %>"><i class="pencil alternate icon"></i></a>
-                            <a href="/delcard/<%= card.id %>"><i class="trash alternate icon"></i></a>
-                            <a href="/poscarddown/<%= card.id %>"><i class="angle left icon"></i></a>
-                            <a href="/poscardup/<%= card.id %>"><i class="angle right icon"></i></a>
+                            <a href="/editcard/<%= card.id %>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                              </svg></a>
+                            <a href="/delcard/<%= card.id %>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                              </svg></a>
+                            <a href="/poscarddown/<%= card.id %>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+                                <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+                              </svg></a>
+                            <a href="/poscardup/<%= card.id %>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                                <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                              </svg></a>
                         </div>
                     </div>
                 </div>
@@ -98,7 +106,9 @@
                 <div class="card bg-dark" style="width: 18rem;">
                     <a href="/newcard">
                         <div class="card-body addCard">
-                            <i class="large plus icon"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                              </svg>
                         </div>
                     </a>
                 </div>
@@ -111,7 +121,7 @@
     <script>if (typeof module === 'object') {window.module = module; module = undefined;};</script>
 
     <script src="http://localhost:7474/jquery.js"></script>
-    <script src="http://localhost:7474/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="http://localhost:7474/bootstrap.bundle.min.js"></script>
     <script>
         $('html').keypress(function(e) {
             if (e.keyCode == 109) {
