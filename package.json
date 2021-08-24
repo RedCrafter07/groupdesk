@@ -1,6 +1,6 @@
 {
   "name": "groupdesk",
-  "version": "1.0.4.2.1",
+  "version": "1.0.4",
   "description": "GroupDesk is an app by RedCrafter07 which allows you to add fields and simplify your workflow.",
   "main": "./src/main.js",
   "scripts": {
