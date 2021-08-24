@@ -85,7 +85,7 @@
         <div class="row">
             <% cards.forEach((card) => { %>
                 <div class="col-lg-4 col-6">
-                    <div class="card bg-dark">
+                    <div class="card bg-dark <%=card.tcolor%>" style="background-color: <%=""+card.color %>; color: <%=card.tcolor%>;">
                         <div class="card-body">
                             <!-- <form action="" method="post" name="card1">
                                 <input type="text" name="title" id="title" placeholder="Title..." class="textcardheader">

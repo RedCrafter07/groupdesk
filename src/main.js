@@ -233,13 +233,13 @@ app.get('/newcard', (req, res) => {
 });
 
 app.post('/newcard', async (req, res) => {
-	console.log(req.body);
-
 	let cardObj = {
 		index: config.cards.length,
 		type: req.body.type,
 		name: req.body.name,
-		id: Math.floor(Math.random() * 9999999999999)
+		id: Math.floor(Math.random() * 9999999999999),
+		color: req.body.color,
+		tcolor: hexToLightOrDark(req.body.color)
 	};
 
 	if (req.body.type == 'text') {
@@ -304,6 +304,10 @@ app.post('/editcard/:id', async (req, res) => {
 	let cardIndex = await findCard(req.params.id);
 
 	config.cards[cardIndex].name = req.body.name;
+
+	config.cards[cardIndex].color = req.body.color;
+
+	config.cards[cardIndex].tcolor = hexToLightOrDark(req.body.color);
 
 	if (config.cards[cardIndex].type == 'url') {
 		config.cards[cardIndex].val = req.body.urlval;
@@ -702,7 +706,7 @@ function findCard(id) {
 }
 
 function windowSet() {
-	win.setMenu(null);
+	// win.setMenu(null);
 
 	win.loadURL('http://localhost:7474/');
 
@@ -714,4 +718,98 @@ function windowSet() {
 	});
 
 	win.setAlwaysOnTop(false);
+}
+
+function hexToHSL(H) {
+	/* 
+	Source:
+	https://css-tricks.com/converting-color-spaces-in-javascript/#hex-to-hsl
+	*/
+	let r = 0,
+		g = 0,
+		b = 0;
+	if (H.length == 4) {
+		r = '0x' + H[1] + H[1];
+		g = '0x' + H[2] + H[2];
+		b = '0x' + H[3] + H[3];
+	} else if (H.length == 7) {
+		r = '0x' + H[1] + H[2];
+		g = '0x' + H[3] + H[4];
+		b = '0x' + H[5] + H[6];
+	}
+	r /= 255;
+	g /= 255;
+	b /= 255;
+	let cmin = Math.min(r, g, b),
+		cmax = Math.max(r, g, b),
+		delta = cmax - cmin,
+		h = 0,
+		s = 0,
+		l = 0;
+
+	if (delta == 0) h = 0;
+	else if (cmax == r) h = ((g - b) / delta) % 6;
+	else if (cmax == g) h = (b - r) / delta + 2;
+	else h = (r - g) / delta + 4;
+
+	h = Math.round(h * 60);
+
+	if (h < 0) h += 360;
+
+	l = (cmax + cmin) / 2;
+	s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+	s = +(s * 100).toFixed(1);
+	l = +(l * 100).toFixed(1);
+
+	return 'hsl(' + h + ',' + s + '%,' + l + '%)';
+}
+
+function hexToLightOrDark(H) {
+	/* 
+	Source:
+	https://css-tricks.com/converting-color-spaces-in-javascript/#hex-to-hsl
+
+	Modification: RedCrafter07
+	*/
+	let r = 0,
+		g = 0,
+		b = 0;
+	if (H.length == 4) {
+		r = '0x' + H[1] + H[1];
+		g = '0x' + H[2] + H[2];
+		b = '0x' + H[3] + H[3];
+	} else if (H.length == 7) {
+		r = '0x' + H[1] + H[2];
+		g = '0x' + H[3] + H[4];
+		b = '0x' + H[5] + H[6];
+	}
+	r /= 255;
+	g /= 255;
+	b /= 255;
+	let cmin = Math.min(r, g, b),
+		cmax = Math.max(r, g, b),
+		delta = cmax - cmin,
+		h = 0,
+		s = 0,
+		l = 0;
+
+	if (delta == 0) h = 0;
+	else if (cmax == r) h = ((g - b) / delta) % 6;
+	else if (cmax == g) h = (b - r) / delta + 2;
+	else h = (r - g) / delta + 4;
+
+	h = Math.round(h * 60);
+
+	if (h < 0) h += 360;
+
+	l = (cmax + cmin) / 2;
+	s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+	s = +(s * 100).toFixed(1);
+	l = +(l * 100).toFixed(1);
+
+	if (l > 50) {
+		return 'black';
+	} else if (l < 50) {
+		return 'white';
+	}
 }

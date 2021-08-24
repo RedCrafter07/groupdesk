@@ -68,8 +68,8 @@
         <div class="row">
             <% cards.forEach((card) => { %>
                 <div class="col-4">
-                    <div class="card bg-dark">
-                        <div class="card-body">
+                    <div class="card bg-dark <%=card.tcolor%>">
+                        <div class="card-body" style="background-color: <%=card.color %>; color: <%=card.tcolor%>">
                             <!-- <form action="" method="post" name="card1">
                                 <input type="text" name="title" id="title" placeholder="Title..." class="textcardheader">
                                 <input type="text" name="content" id="content" placeholder="Input...">
@@ -85,19 +85,23 @@
                             <% } else if (card.type == "time") { %>
                                 <p class="timeCardDisplay"></p>
                             <% } %>
-                            <a href="/editcard/<%= card.id %>" class="editCard"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                            <a href="/editcard/<%= card.id %>" class="editCard cardButton <%= card.tcolor %>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                 <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                              </svg></a>
-                            <a href="/delcard/<%= card.id %>" class="deleteCard"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                              </svg>
+                            </a>
+                            <a href="/delcard/<%= card.id %>" class="deleteCard cardButton <%= card.tcolor %>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                                 <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-                              </svg></a>
-                            <a href="/poscarddown/<%= card.id %>" class="moveCard"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+                              </svg>
+                            </a>
+                            <a href="/poscarddown/<%= card.id %>" class="moveCard cardButton <%= card.tcolor %>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
                                 <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
-                              </svg></a>
-                            <a href="/poscardup/<%= card.id %>" class="moveCard"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                              </svg>
+                            </a>
+                            <a href="/poscardup/<%= card.id %>" class="moveCard cardButton <%= card.tcolor %>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
                                 <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-                              </svg></a>
+                              </svg>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -123,6 +127,7 @@
     <script src="http://localhost:7474/jquery.js"></script>
     <script src="http://localhost:7474/bootstrap.bundle.min.js"></script>
     <script>
+
         $('html').keypress(function(e) {
             if (e.keyCode == 109) {
                 $('#offcanvasExample').toggleClass('show')

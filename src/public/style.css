@@ -35,8 +35,19 @@ button:focus {
 	transition: all, 250ms;
 }
 
-.editCard {
+.editCard.black,
+.deleteCard.black,
+.moveCard.black {
+	color: #000;
+}
+
+.editCard.white,
+.deleteCard.white,
+.moveCard.white {
 	color: #fff;
+}
+
+.editCard {
 	transition: all, 250ms;
 }
 
@@ -45,7 +56,6 @@ button:focus {
 }
 
 .deleteCard {
-	color: #fff;
 	transition: all, 250ms;
 }
 
@@ -54,7 +64,6 @@ button:focus {
 }
 
 .moveCard {
-	color: #fff;
 	transition: all, 250ms;
 }
 

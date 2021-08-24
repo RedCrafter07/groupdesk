@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Groupdesk</title>
 
-		<link rel="stylesheet" href="http://localhost:7474/icon.min.css"/>
+		<!-- <link rel="stylesheet" href="http://localhost:7474/icon.min.css"/> -->
 		<link rel="stylesheet" href="http://localhost:7474/bootstrap.min.css" />
 		<link rel="stylesheet" href="http://localhost:7474/style.css" />
 	</head>
@@ -21,6 +21,7 @@
                             <form action="/newcard" method="post">
 								<input type="text" name="type" id="type" value="time" class="invis">
 								<input type="text" name="name" id="name" placeholder="Time..." style="font-size: 1.25rem;" required>
+								<input type="color" name="color" id="color" value="#212529">
 								<p class="timeCardDisplay"></p>
 								<br>
 								<input type="submit" value="Submit" class="btn btn-outline-success">
@@ -34,6 +35,7 @@
                             <form action="/newcard" method="post">
 								<input type="text" name="type" id="type" value="date" class="invis">
 								<input type="text" name="name" id="name" placeholder="Date..." style="font-size: 1.25rem;" required>
+								<input type="color" name="color" id="color" value="#212529">
 								<p class="dateCardDisplay"></p>
 								<br>
 								<input type="submit" value="Submit" class="btn btn-outline-success">
@@ -47,6 +49,7 @@
                             <form action="/newcard" method="post">
 								<input type="text" name="type" id="type" value="text" class="invis">
 								<input type="text" name="name" id="name" placeholder="Text..." style="font-size: 1.25rem;" required>
+								<input type="color" name="color" id="color" value="#212529">
 								<textarea name="textval" id="textval" style="color: #fff; width: 100%;" class="bg-dark" placeholder="Something Important..."></textarea>
 								<br><br>
 
@@ -63,6 +66,7 @@
 								<input type="text" name="name" id="name" placeholder="Text..." style="font-size: 1.25rem;" required>
 								<input type="text" name="urlph" id="urlph" placeholder="Your URL Placeholder..." style="font-size: 1rem;" required>
 								<input type="text" name="urlval" id="urlval" placeholder="Your URL..." style="font-size: 1rem;" required>
+								<input type="color" name="color" id="color" value="#212529">
 								<br><br>
 
 								<input type="submit" value="Submit" class="btn btn-outline-success">
@@ -88,15 +92,15 @@
 		</script>
 
 		<script src="http://localhost:7474/jquery.js"></script>
-		<script
-			src="http://localhost:7474/bootstrap.bundle.min.js"
-			integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
-			crossorigin="anonymous"
-		></script>
+		<script src="http://localhost:7474/bootstrap.bundle.min.js"></script>
 
 		<script>
 			$('.dateCardDisplay').text(checkDate())
 			$('.timeCardDisplay').text(checkTime())
+
+			$('#color').on('change',function(){
+				$('#choosen-color').text($(this).val());
+			});
 
 			setInterval(() => {
 				$('.dateCardDisplay').text(checkDate())
