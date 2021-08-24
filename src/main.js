@@ -3,7 +3,7 @@ const { app: desk, shell, BrowserWindow } = require('electron');
 const { Menu, MenuItem } = require('electron'); //Custom App Menu
 
 /* 
-GroupDesk by RedCrafter07
+	GroupDesk by RedCrafter07
 */
 
 let configDefaults = {
