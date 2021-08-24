@@ -706,7 +706,7 @@ function findCard(id) {
 }
 
 function windowSet() {
-	// win.setMenu(null);
+	win.setMenu(null);
 
 	win.loadURL('http://localhost:7474/');
 
