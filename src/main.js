@@ -76,6 +76,8 @@ let config = require('./config.json');
 
 // let started = true;
 
+let appStartTime = Date.now();
+
 let win;
 
 let start;
@@ -117,7 +119,8 @@ function startscreen() {
 		maximizable: false,
 		minimizable: false,
 		closable: false,
-		backgroundColor: '#212121'
+		backgroundColor: '#212121',
+		title: 'GroupDesk | Starting...'
 	});
 
 	start.loadURL('http://localhost:7474/loading.gif');
@@ -135,6 +138,7 @@ function startscreen() {
 // initialization and is ready to create browser windows.
 // Einige APIs können nur nach dem Auftreten dieses Events genutzt werden.
 desk.whenReady().then(async () => {
+	console.log(`App started in ${Date.now() - appStartTime}ms.`);
 	if (config.skipStartScreen == true) {
 		config.skipStartScreen = false;
 
