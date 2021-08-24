@@ -12,7 +12,10 @@
   },
   "author": "RedCrafter07",
   "license": "ISC",
-  "repository": "https://github.com/RedCrafter07/groupdesk",
+  "repository": {
+    "url": "https://github.com/RedCrafter07/groupdesk",
+    "type": "git"
+  },
   "dependencies": {
     "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
@@ -37,6 +40,10 @@
   },
   "config": {
     "forge": {
+      "github_repository": {
+        "owner": "RedCrafter07",
+        "name": "groupdesk"
+      },
       "packagerConfig": {
         "icon": "./icon.ico"
       },
