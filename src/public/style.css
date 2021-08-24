@@ -32,6 +32,46 @@ button:focus {
 	justify-content: center;
 	color: #424242;
 	height: 100%;
+	transition: all, 250ms;
+}
+
+.editCard {
+	color: #fff;
+	transition: all, 250ms;
+}
+
+.editCard:hover {
+	color: #ffc400;
+}
+
+.deleteCard {
+	color: #fff;
+	transition: all, 250ms;
+}
+
+.deleteCard:hover {
+	color: #ff2222;
+}
+
+.moveCard {
+	color: #fff;
+	transition: all, 250ms;
+}
+
+.moveCard:hover {
+	color: #0066ff;
+}
+
+.addCard:hover {
+	border: 1px dashed #fff;
+	border-radius: 30px;
+	padding: 1.5rem;
+	margin: .5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+	height: 100%;
 }
 
 input[type=text],
