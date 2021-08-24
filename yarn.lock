@@ -528,7 +528,7 @@ asar@^2.0.1:
 
 asar@^3.0.0:
   version "3.0.3"
-  resolved "https://registry.npmjs.org/asar/-/asar-3.0.3.tgz"
+  resolved "https://registry.yarnpkg.com/asar/-/asar-3.0.3.tgz#1fef03c2d6d2de0cbad138788e4f7ae03b129c7b"
   integrity sha512-k7zd+KoR+n8pl71PvgElcoKHrVNiSXtw7odKbyNpmgKe7EGRF9Pnu3uLOukD37EvavKwVFxOUpqXTIZC5B5Pmw==
   dependencies:
     chromium-pickle-js "^0.2.0"
