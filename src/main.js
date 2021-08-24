@@ -2,6 +2,10 @@ const { app: desk, shell, BrowserWindow } = require('electron');
 
 const { Menu, MenuItem } = require('electron'); //Custom App Menu
 
+/* 
+GroupDesk by RedCrafter07
+*/
+
 let configDefaults = {
 	showBar: true,
 	editmode: false,
@@ -456,6 +460,8 @@ app.get('/settings/backup', (req, res) => {
 		});
 	res.render('backup.ejs');
 });
+
+require('update-electron-app')({ notifyUser: true, repo: 'RedCrafter07/groupdesk' });
 
 // app.get('/settings/backup/restore', async (req, res) => {
 // 	res.render('restore.ejs');
