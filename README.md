@@ -1,7 +1,7 @@
 # GroupDesk
 
 ## What is GroupDesk?
-GroupDesk allows you to create "fields" or "cards". Currently you can add...
+GroupDesk is an Windows Desktop app, which allows you to create "fields" or "cards". Currently you can add...
 - Time Card
 - Date Card
 - Text Card
