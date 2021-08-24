@@ -10,7 +10,8 @@ let configDefaults = {
 	showBar: true,
 	editmode: false,
 	cards: [],
-	skipStartScreen: false
+	skipStartScreen: false,
+	configurated: true
 };
 
 let popoutActive = false;
@@ -73,6 +74,10 @@ if (require('electron-squirrel-startup')) {
 
 // const config = require('../../config.json'); //Package? Use this :)
 let config = require('./config.json');
+
+if (!config.configurated) {
+	config = configDefaults;
+}
 
 // let started = true;
 
