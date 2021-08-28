@@ -387,6 +387,14 @@ app.post('/changeConfig', async (req, res) => {
 	res.redirect('/');
 });
 
+app.get('/editmode', async (req, res) => {
+	config.editmode = config.editmode == false;
+
+	await db.push('.', config);
+
+	res.redirect('/');
+});
+
 app.get('/popout', (req, res) => {
 	popout();
 
