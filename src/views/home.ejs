@@ -9,7 +9,7 @@
     
     <link rel="stylesheet" href="http://localhost:7474/bootstrap.min.css" />
     <link rel="stylesheet" href="http://localhost:7474/style.css" />
-    <link rel="stylesheet" href="switch.css">
+    <link rel="stylesheet" href="http://localhost:7474/switch.css">
 </head>
 <body>
     <!-- <% if (popout == true) { %> 
@@ -87,7 +87,7 @@
         <div class="row">
             <% cards.forEach((card) => { %>
                 <div class="col-lg-4 col-6">
-                    <div class="card bg-dark <%=card.tcolor%>" style="background-color: <%=""+card.color %>; color: <%=card.tcolor%>;">
+                    <div class="card bg-dark <%=card.tcolor%>" style="background-color: <%=card.color %>; color: <%=card.tcolor%>">
                         <div class="card-body">
                             <!-- <form action="" method="post" name="card1">
                                 <input type="text" name="title" id="title" placeholder="Title..." class="textcardheader">
@@ -103,6 +103,8 @@
                                 <p class="dateCardDisplay"></p>
                             <% } else if (card.type == "time") { %>
                                 <p class="timeCardDisplay"></p>
+                            <% } else if (card.type == "file") { %>
+                                <a href="/openFiles/<%=card.id%>"><%=card.text%></a>
                             <% } %>
                         </div>
                     </div>
