@@ -59,8 +59,16 @@
 					<div class="col-6 url d-none">
 						<div class="card bg-dark">
 							<div class="card-body">
-								<h5>Card URL Placeholder</h5>
+								<h5>Card URL Text</h5>
 								<input type="text" name="urlph" id="urlph" placeholder="My URL..." value="<%= card.ph %>" />
+							</div>
+						</div>
+					</div>
+					<div class="col-6 file d-none">
+						<div class="card bg-dark">
+							<div class="card-body">
+								<h5>Card URL Text</h5>
+								<input type="text" name="text" id="text" placeholder="My URL..." value="<%= card.text %>" />
 							</div>
 						</div>
 					</div>
@@ -85,7 +93,12 @@
 		></script>
 
 		<script>
+			detection()
 			setInterval(() => {
+				detection()
+			}, 1000);
+
+			function detection() {
 				if ($('.type').text() == 'text') {
 					$('.text').removeClass('d-none');
 					$('.url').addClass('d-none');
@@ -103,12 +116,21 @@
 					} else {
 						$('.send').addClass('d-none');
 					}
+				} else if ($('.type').text() == 'file') {
+					$('.text').addClass('d-none');
+					$('.file').removeClass('d-none');
+
+					if ($('#text').val()) {
+						$('.send').removeClass('d-none');
+					} else {
+						$('.send').addClass('d-none');
+					}
 				} else {
 					$('.text').addClass('d-none');
 					$('.url').addClass('d-none');
 					$('.send').removeClass('d-none');
 				}
-			}, 1000);
+			}
 
 			if ($('.type').text() == 'text') {
 				$('#textval').val($('.invis.val').text())
