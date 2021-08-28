@@ -321,9 +321,11 @@ app.post('/editcard/:id', async (req, res) => {
 		config.cards[cardIndex].ph = req.body.urlph;
 	} else if (config.cards[cardIndex].type == 'text') {
 		config.cards[cardIndex].val = req.body.textval;
+	} else if (config.cards[cardIndex].type == 'file') {
+		config.cards[cardIndex].text = req.body.text;
 	}
 
-	db.push('.', config);
+	await db.push('.', config);
 
 	res.redirect('/');
 });
@@ -392,7 +394,6 @@ app.get('/popout', (req, res) => {
 });
 
 app.get('/settings/apply', async (req, res) => {
-	config.editmode = false;
 	await db.push('.', config);
 	desk.relaunch();
 	desk.exit();
@@ -612,6 +613,88 @@ app.post('/settingsView/config', async (req, res) => {
 	win.reload();
 
 	res.redirect('/settingsView');
+});
+
+app.get('/create/fileCard', async (req, res) => {
+	let id = Math.floor(Math.random() * 9999999999999);
+	let cardObj = {
+		index: config.cards.length,
+		type: 'file',
+		id: id
+	};
+
+	config.cards.push(cardObj);
+
+	await db.push('.', config);
+
+	dialog
+		.showOpenDialog(win, {
+			properties: [ 'showHiddenFiles', 'openFile', 'openDirectory', 'multiSelections', 'dontAddToRecent' ],
+			filters: [ { name: 'All Files', extensions: [ '*' ] } ],
+			message: 'Please select the file or the folder which you want to link.',
+			title: 'GroupDesk | Link File',
+			buttonLabel: 'Save Path'
+		})
+		.then(result => {
+			if (result.canceled == false) {
+				console.log(result.filePaths);
+
+				let card = config.cards[findCard(id)];
+
+				config.cards[findCard(id)].files = result.filePaths;
+
+				db.push('.', config);
+
+				console.log(card);
+
+				// fs.writeFile('messages.json', JSON.stringify(messages, null, 2), err => {
+				// 	if (err) console.log(err);
+				// });
+			} else {
+				win.setProgressBar(0.99, { mode: 'error' });
+				setTimeout(() => {
+					win.setProgressBar(0, { mode: 'normal' });
+				}, 5000);
+			}
+		})
+		.catch(err => {
+			console.log(err);
+		});
+
+	res.render('createFileCard.ejs', { id });
+});
+
+app.get('/exit/fileCard/:id', async (req, res) => {
+	delCard(req.params.id);
+
+	db.push('.', config);
+
+	res.redirect('/');
+});
+
+app.post('/create/fileCard/:id', async (req, res) => {
+	config.cards[findCard(req.params.id)].text = req.body.text;
+	config.cards[findCard(req.params.id)].name = req.body.name;
+	config.cards[findCard(req.params.id)].color = req.body.color;
+	config.cards[findCard(req.params.id)].tcolor = hexToLightOrDark(req.body.color);
+
+	db.push('.', config);
+
+	res.redirect('/');
+});
+
+app.get('/openFiles/:id', (req, res) => {
+	let fileArr = config.cards[findCard(req.params.id)].files;
+
+	fileArr.forEach(file => {
+		shell.openExternal(file);
+	});
+
+	res.redirect('/close');
+});
+
+app.get('/close', (req, res) => {
+	res.render('temp.ejs');
 });
 
 app.get('*', (req, res) => {
